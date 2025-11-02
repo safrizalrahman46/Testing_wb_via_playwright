@@ -65,23 +65,26 @@ class SignupController extends Controller
                 'admin' => 'System administrator',
                 'educational_staff' => 'Educational staff member',
             },
+            'name' => $request->name ?? '-',
+            'nim' => $request->nim ?? '-',
+            'nik' => $request->nik ?? '-',
+            'phone' => $request->phone ?? '-',
+            'origin_address' => $request->origin_address ?? '-',
+            'current_address' => $request->current_address ?? '-',
 
-            // Untuk semua role
-            'name' => $request->name ?? null,
-            'nim' => $request->role_name === 'student' ? $request->nim : null,
-            'nik' => in_array($request->role_name, ['student', 'educational_staff']) ? $request->nik : null,
-            'phone' => $request->phone ?? null,
-            'origin_address' => $request->origin_address ?? null,
-            'current_address' => $request->current_address ?? null,
 
-            // Hanya untuk student
+            // 'study_program_id' => $request->study_program_id ?? 1,
+            // 'major_id' => $request->major_id ?? 1,
+            // 'campus' => $request->campus ?? 'Main',
+
+            //jADI YANG OTOMATIS KE ISI HANYA STUDENT SAJA
             'study_program_id' => $request->role_name === 'student' ? $request->study_program_id : null,
             'major_id' => $request->role_name === 'student' ? $request->major_id : null,
             'campus' => $request->role_name === 'student' ? $request->campus : null,
 
+
             'has_registered_free_toeic' => false,
         ]);
-
 
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }

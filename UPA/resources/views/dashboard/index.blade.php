@@ -30,6 +30,12 @@
     @endforeach
 </div>
 
+<div class="card shadow-sm border-0 p-3 mb-4 rounded-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-semibold mb-0">Monthly TOEIC Registrations</h5>
+    </div>
+    <canvas id="overviewChart" height="120"></canvas>
+</div>
 
 <div class="card shadow-sm border-0 p-3 rounded-4">
     <h5 class="fw-semibold mb-3">TOEIC Registration List</h5>
@@ -41,9 +47,8 @@
                     <th>Student ID</th>
                     <th>Status</th>
                     <th>Registration Date</th>
-                    {{--  <th>Score</th>
-                    <th>Certificate</th>  --}}
-                    <th>KTP</th>
+                    <th>Score</th>
+                    <th>Certificate</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,10 +62,10 @@
                         </span>
                     </td>
                     <td>{{ \Carbon\Carbon::parse($reg->registration_date)->format('d/m/Y') }}</td>
-                    {{--  <td>{{ $reg->score ?? '-' }}</td>  --}}
+                    <td>{{ $reg->score ?? '-' }}</td>
                     <td>
-                        @if($reg->ktp_path)
-                            <a href="{{ asset('storage/' . $reg->ktp_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
+                        @if($reg->certificate_path)
+                            <a href="{{ asset('storage/' . $reg->certificate_path) }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
                         @else
                             <span class="text-muted">Not available</span>
                         @endif

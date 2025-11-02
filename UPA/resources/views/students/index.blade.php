@@ -4,9 +4,9 @@
 <div class="container">
     <h3>Free Student Registration</h3>
        <div class="d-flex justify-content-end mb-3">
-        {{--  <a href="{{ route('students.create') }}" class="btn btn-success">
+        <a href="{{ route('students.create') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Add Student
-        </a>  --}}
+        </a>
     </div>
     @include('partials.flash')
 

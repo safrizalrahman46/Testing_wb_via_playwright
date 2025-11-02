@@ -9,62 +9,60 @@ use App\Http\Controllers\Controller;
 use App\Models\m_user;
 use App\Models\StudyProgram;
 use App\Models\Major;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class EducationalStaffController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-
-        if ($user->role_name === 'educational_staff') {
-            // Hanya melihat datanya sendiri berdasarkan username
-            $staffs = \App\Models\User::where('role_name', 'educational_staff')
-                ->where('username', $user->username)
-                ->get();
-        } else {
-            // Admin melihat semua staff
-            $staffs = \App\Models\User::where('role_name', 'educational_staff')->get();
-        }
+        $staffs = m_user::with(['studyProgram', 'major'])
+            ->where('role_name', 'educational_staff')
+            ->get();
 
         return view('educational-staff.index', compact('staffs'));
     }
+
     public function create()
     {
         $programs = StudyProgram::all();
         $majors = Major::all();
         return view('educational-staff.create', compact('programs', 'majors'));
     }
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'photo_path' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'id_card_path' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        $request->validate([
+            'username' => 'required|unique:user',
+            'email' => 'required|email|unique:user',
+            'nim' => 'required',
+            'name' => 'required',
+            'nik' => 'required',
+            'phone' => 'required',
+            'origin_address' => 'required',
+            'current_address' => 'required',
+            'study_program_id' => 'required',
+            'major_id' => 'required',
+            'campus' => 'required|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
         ]);
 
-        // Simpan file
-        $photoPath = $request->file('photo_path')->store('photos', 'public');
-        $idCardPath = $request->file('id_card_path')->store('id_cards', 'public');
+        m_user::create([
+            'username' => $request->username,
+            'password' => bcrypt('default123'),
+            'email' => $request->email,
+            'role_name' => 'educational_staff',
+            'role_description' => 'Educational Staff',
+            'nim' => $request->nim,
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'phone' => $request->phone,
+            'origin_address' => $request->origin_address,
+            'current_address' => $request->current_address,
+            'study_program_id' => $request->study_program_id,
+            'major_id' => $request->major_id,
+            'campus' => $request->campus,
+        ]);
 
-        // Simpan data ke database
-        $staff = new User();
-        $staff->role_name = 'educational_staff';
-        $staff->photo_path = $photoPath;
-        $staff->id_card_path = $idCardPath;
-        $staff->save();
-
-        return redirect()->route('educational-staff.payment', ['id' => $staff->id]);
+        return redirect()->route('educational-staff.index')->with('success', 'Educational Staff created.');
     }
-
-
-    public function payment($id)
-    {
-        $staff = User::findOrFail($id);
-
-        return view('educational-staff.payment', compact('staff'));
-    }
-
 
     public function show($id)
     {
@@ -94,14 +92,8 @@ class EducationalStaffController extends Controller
         ]);
 
         $staff->update($request->only([
-            'email',
-            'name',
-            'phone',
-            'origin_address',
-            'current_address',
-            'study_program_id',
-            'major_id',
-            'campus'
+            'email', 'name', 'phone', 'origin_address', 'current_address',
+            'study_program_id', 'major_id', 'campus'
         ]));
 
         return redirect()->route('educational-staff.index')->with('success', 'Educational Staff updated.');
@@ -115,3 +107,4 @@ class EducationalStaffController extends Controller
         return redirect()->route('educational-staff.index')->with('success', 'Educational Staff deleted.');
     }
 }
+

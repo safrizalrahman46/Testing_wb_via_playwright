@@ -2,61 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ToeicRegistration;
-use App\Models\User;
+use App\Models\m_user;
+use App\Models\StudyProgram;
+use App\Models\Major;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Hash;
 
 class AdminRegistrationController extends Controller
 {
     public function index()
     {
-        $registrations = ToeicRegistration::orderBy('registration_date', 'desc')->get();
-        return view('adminRegist.index', compact('registrations'));
+        $students = m_user::with(['studyProgram:id,name', 'major:id,name'])
+            ->where('role_name', 'student')
+            ->select(
+                'id', 'username', 'name', 'email', 'nim', 'study_program_id', 'major_id',
+                'campus', 'role_name', 'status', 'rejection_reason'
+            )
+            ->get();
+
+        return view('admin.student-register.index', compact('students'));
     }
 
-    public function edit($id)
+    public function create()
     {
-        // Ambil data pendaftaran TOEIC
-        $registration = ToeicRegistration::findOrFail($id);
-
-        // Ambil semua pengguna (atau filter sesuai kriteria) untuk dipilih
-        $users = User::where('role_name', 'student')->get();
-
-        return view('adminRegist.edit', compact('registration', 'users'));
+        return view('admin.student-register', [
+            'studyPrograms' => StudyProgram::all(),
+            'majors' => Major::all(),
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        // Validation logic
         $request->validate([
-            'status' => 'required|in:pending,approved,rejected,cancelled',
-            // other validation rules
+            'username' => 'required|string|max:50|unique:user,username',
+            'email' => 'required|email|unique:user,email',
+            'password' => 'required|string|confirmed|min:6',
+            'nim' => 'required|unique:user,nim',
+            'name' => 'required|string',
+            'nik' => 'required|unique:user,nik',
+            'phone' => 'required',
+            'origin_address' => 'required|string',
+            'current_address' => 'required|string',
+            'study_program_id' => 'required|exists:study_programs,id',
+            'major_id' => 'required|exists:majors,id',
+            'campus' => 'required|in:Main,PSDKU Kediri,PSDKU Lumajang,PSDKU Pamekasan',
         ]);
 
-        // Find the registration
-        $registration = ToeicRegistration::findOrFail($id);
+        m_user::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_name' => 'student',
+            'role_description' => 'Registered by admin',
+            'nim' => $request->nim,
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'phone' => $request->phone,
+            'origin_address' => $request->origin_address,
+            'current_address' => $request->current_address,
+            'study_program_id' => $request->study_program_id,
+            'major_id' => $request->major_id,
+            'campus' => $request->campus,
+            'has_registered_free_toeic' => false,
+            'status' => 'pending',
+        ]);
 
-        // Automatically set the user_ref_id to the authenticated user's ID
-        $registration->user_ref_id = auth()->user()->id;
-
-        // Update the status
-        $registration->status = $request->status;
-        $registration->save();
-
-        // Redirect back to the registration list
-        return redirect()->route('adminRegist.index')->with('success', 'Status updated successfully.');
+        return redirect()->back()->with('success', 'Mahasiswa berhasil didaftarkan.');
     }
 
-
-    // Metode lain (show, destroy, dsb) tetap sama
-    public function destroy($id)
+    public function approve($id)
     {
-        $registration = ToeicRegistration::findOrFail($id);
-        $registration->delete();
+        $student = m_user::findOrFail($id);
+        $student->update([
+            'status' => 'approved',
+            'rejection_reason' => null,
+        ]);
 
-        return response()->json(['success' => 'Registration deleted successfully.']);
+        return back()->with('success', 'Student approved.');
     }
 
+    public function reject(Request $request, $id)
+    {
+        $request->validate(['rejection_reason' => 'required|string']);
+
+        $student = m_user::findOrFail($id);
+        $student->update([
+            'status' => 'rejected',
+            'rejection_reason' => $request->rejection_reason,
+        ]);
+
+        return back()->with('error', 'Student rejected.');
+    }
 }

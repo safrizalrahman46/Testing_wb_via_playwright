@@ -12,7 +12,7 @@ class DashboardController extends Controller
         // Data kartu
         $totalRegistrations = DB::table('toeic_registration')->count();
         $paidRegistrations = DB::table('toeic_registration')->where('status', 'paid')->count();
-        $certUploaded = DB::table('toeic_registration')->whereNotNull('ktp_path')->count();
+        $certUploaded = DB::table('toeic_registration')->whereNotNull('certificate_path')->count();
 
         // Data tabel
         $registrations = DB::table('toeic_registration')->get();

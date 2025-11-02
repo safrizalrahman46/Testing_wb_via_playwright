@@ -146,43 +146,46 @@ onMounted(() => {
 
         <!-- Statement Section -->
         <section class="py-12">
-           <div class="max-w-5xl mx-auto px-6 text-left">
-    <h2 class="text-xl md:text-2xl font-bold text-black leading-snug">
-      Boost your <span class="text-blue-600">#Journey</span> with TOEIC.<br />
-      Open doors to global careers and<br />
-      stand out with certified English skills.
-    </h2>
-  </div>
-</section>
+          <div class="max-w-5xl mx-auto px-6 text-left">
+            <h2 class="text-xl md:text-2xl font-bold text-black leading-snug">
+              Rise Your <span class="text-blue-600">#Journey</span> And Unlock Global<br />
+              opportunities with proven<br />
+              Business English-language Proficiency.
+            </h2>
+          </div>
+        </section>
 
-<!-- Three Columns Section -->
-<section class="py-16 bg-white max-w-6xl mx-auto px-6 text-center">
-  <div class="grid md:grid-cols-3 gap-12">
-    <div>
-      <h3 class="text-3xl font-bold text-black mb-6">01</h3>
-      <p class="text-lg text-black font-semibold leading-relaxed">
-        Prepare for real-world challenges<br />
-        with professional English communication<br />
-        skills that matter.
-      </p>
-    </div>
-    <div>
-      <h3 class="text-3xl font-bold text-black mb-6">02</h3>
-      <p class="text-lg text-black font-semibold leading-relaxed">
-        Get recognized with TOEIC certification<br />
-        trusted by universities and companies<br />
-        around the world.
-      </p>
-    </div>
-    <div>
-      <h3 class="text-3xl font-bold text-black mb-6">03</h3>
-      <p class="text-lg text-black font-semibold leading-relaxed">
-        Access personalized training modules<br />
-        designed to help you excel in<br />
-        every TOEIC section.
-      </p>
-    </div>
-  </div>
+        <!-- Three Columns Section -->
+        <section class="py-16 bg-white max-w-6xl mx-auto px-6 text-center">
+          <div class="grid md:grid-cols-3 gap-12">
+            <div>
+              <h3 class="text-3xl font-bold text-black mb-6">01</h3>
+              <p class="text-lg text-black font-semibold leading-relaxed">
+                Rise Your <span class="text-blue-600">#Journey</span> And Unlock<br />
+                Global opportunities with proven<br />
+                Business English-language<br />
+                Proficiency.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-3xl font-bold text-black mb-6">02</h3>
+              <p class="text-lg text-black font-semibold leading-relaxed">
+                Rise Your <span class="text-blue-600">#Journey</span> And Unlock<br />
+                Global opportunities with proven<br />
+                Business English-language<br />
+                Proficiency.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-3xl font-bold text-black mb-6">03</h3>
+              <p class="text-lg text-black font-semibold leading-relaxed">
+                Rise Your <span class="text-blue-600">#Journey</span> And Unlock<br />
+                Global opportunities with proven<br />
+                Business English-language<br />
+                Proficiency.
+              </p>
+            </div>
+          </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch mt-12">
             <div class="overflow-hidden rounded-xl shadow-md">
@@ -202,10 +205,11 @@ onMounted(() => {
           <div class="flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
             <div class="md:w-1/2 text-gray-800 leading-relaxed text-base">
               <p class="text-justify">
-         TOEIC (Test of English for International Communication) is a globally recognized standard for measuring
-        English language proficiency in a professional environment. Whether you're applying for jobs, planning
-        to study abroad, or enhancing your career, a strong TOEIC score gives you the edge to stand out and
-        succeed. Join thousands of learners worldwide who are unlocking new opportunities through TOEIC.
+                isisesajnjsnakn isisesajnjsnaknisisesajnjsnaknisisesaj
+                njsnaknisisesajnjsnaknisisesajnjsnakni sisesajnjsnaknisisesajnjsnaknisisesajn
+                jsnaknisisesajnjsnaknisisesajnjsnaknis esajnjsnaknisisesajnjsnaknisisesajnjsn
+                aknisisesajnjsnaknisisesajnjsnaknisisesaj nsaknisisesajnjsnaknisisesajnjsnaknisi
+                sisesajnjsnaknisisesajnjsnaknisisesajns aknisisesajnjsnakn
               </p>
             </div>
             <div class="md:w-1/2">

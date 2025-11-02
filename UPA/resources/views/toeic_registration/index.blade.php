@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="mb-0">Paid Registration List</h3>
+        <h3 class="mb-0">TOEIC Registration List</h3>
         <a href="{{ route('toeic-registration.create') }}" class="btn btn-success">
             + Add Registration
         </a>
@@ -16,8 +16,8 @@
                 <th>NIM</th>
                 <th>Status</th>
                 <th>Registration Date</th>
-                {{--  <th>Score</th>  --}}
-                {{--  <th>Certificate</th>  --}}
+                <th>Score</th>
+                <th>Certificate</th>
             </tr>
         </thead>
         <tbody>
@@ -26,14 +26,14 @@
                 <td>{{ $reg->nim }}</td>
                 <td>{{ ucfirst($reg->status) }}</td>
                 <td>{{ $reg->registration_date }}</td>
-                {{--  <td>{{ $reg->score ?? '-' }}</td>  --}}
-                {{--  <td>
+                <td>{{ $reg->score ?? '-' }}</td>
+                <td>
                     @if($reg->certificate_path)
                     <a href="{{ asset('storage/' . $reg->certificate_path) }}" target="_blank">Lihat</a>
                     @else
                     Belum Ada
                     @endif
-                </td>  --}}
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -7,12 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ToeicScoreController extends Controller
 {
-public function index()
-{
-    $scores = ToeicScore::all();
-    return view('toeic_scores.index', compact('scores'));
-}
-
+    public function index()
+    {
+        $toeicScores = ToeicScore::latest()->get();
+        return view('toeic_scores.index', compact('toeicScores'));
+    }
 
     public function create()
     {
@@ -69,11 +68,4 @@ public function index()
 
         return redirect()->route('toeic-scores.index')->with('success', 'PDF berhasil dihapus.');
     }
-
-public function studentScores()
-{
-    $scores = ToeicScore::where('user_id', auth()->id())->get();
-    return view('toeic_scores.index', compact('scores'));
-}
-
 }

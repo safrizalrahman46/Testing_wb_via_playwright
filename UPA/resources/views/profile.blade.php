@@ -3,18 +3,19 @@
 @section('content')
     <div class="card p-4">
         <div class="d-flex flex-column align-items-center text-center">
-            {{-- Menampilkan foto profil dengan gambar default jika tidak ada foto --}}
-            <img src="{{ Storage::url(auth()->user()->photo_path ?? 'public/default-avatar.jpg') }}" alt="Avatar"
-                class="rounded-circle mb-3 shadow-sm" style="width: 150px; height: 150px; object-fit: cover;">
+            <img src="https://via.placeholder.com/100" alt="Avatar" class="rounded-circle mb-3 shadow-sm">
             <h5 class="mb-1">{{ auth()->user()->name }}</h5>
             <p class="text-muted">{{ ucfirst(auth()->user()->role_name) }} | {{ auth()->user()->email }}</p>
             <div class="d-flex gap-2 mt-3">
+                {{--  <a href="#" class="btn btn-primary btn-sm"><i class="bi bi-pencil me-1"></i> Edit Profile</a>
+            <a href="#" class="btn btn-outline-secondary btn-sm"><i class="bi bi-lock me-1"></i> Change Password</a>  --}}
                 <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-pencil me-1"></i> Edit Profile
                 </a>
                 <a href="{{ route('profile.change-password') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-lock me-1"></i> Change Password
                 </a>
+
             </div>
         </div>
     </div>
